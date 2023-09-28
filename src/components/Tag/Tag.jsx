@@ -1,17 +1,30 @@
-import './Tag.css'
+import Tag from "../Tag/Tag";
+import "./Card.css"
 
-export default function Tag(props) {
-    /*
-    Conteúdo do componente
-    */
+export default function Card(props) {
+  const item = props.item;
 
-    const text = props.text;
+  // Garantir que temos sempre um array em tags
 
-    /*
-    Return -> Encerra a função
-    No ReactJS, o return precisa devolver um componente JSX para ser
-    exibido na tela
-    */
+  // Jeito literal
+  // let tags = item.tags;
 
-    return <div className="tag">{text}</div>
+  // if (!tags) {
+  //   tags = [];
+  // }
+
+  // Jeito otimizado
+  const tags = item.tags || [];
+
+  return <div className="card">
+    <h2>{item.name}</h2>
+
+    <div className="tags">
+      {tags.map(function (tag, index) {
+        return <Tag text={tag} key={`card_tag_${index}`} />
+      })}
+    </div>
+
+    <img src={item.image} />
+  </div>
 }
